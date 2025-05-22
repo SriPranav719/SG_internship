@@ -1,0 +1,38 @@
+Chatbot Project - Flowchart Explanation
+
+Chatbot project using FastAPI and LLM APIs.
+    The chatbot allows users to send messages, and it responds with AI-generated answers using streaming responses. The architecture ensures token limits are managed, context is preserved, and responses are streamed effectively.
+
+1. Project Overview
+  The Chatbot using FastAPI, integrated with a large language model (LLM) such as OpenAI.
+
+2. Step-by-Step Explanation
+- User Sends Message
+The user types a message and sends it to the chatbot through a client (CLI).
+
+- Request Reaches FastAPI 
+The backend receives the message via a FastAPI route ( POST).
+
+- Token Limit Check & Context Handling
+The server uses tokenization (with tiktoken) to check the total token count including previous messages. If the count is near the limit, it trims older history.
+
+- LLM API Call (Streaming)
+A request is made to the LLM API with the context and the current message. The response is streamed.
+
+- Streaming Response Back to Client
+As the API responds with one token at a time, the server forwards each token to the client in real-time.
+
+- Client Displays Response
+The CLI sends the response to the user as it streams, mimicking a typing effect.
+
+- Message and Response Saved to Context
+The user message and assistant response are stored in memory (RAM, or, database) to maintain conversation context for future turns.
+
+Phase	                                            Tools
+Backend API	                                    FastAPI, uvicorn
+Input Validation                                Pydantic
+LLM API                                         openai
+Async HTTP	                                    httpx
+Streaming                                       StreamingResponse                      
+Token Count	                                    tiktoken 
+Memory	                                        PostgreSQL
